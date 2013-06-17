@@ -1,4 +1,4 @@
-searcular
+Searcular
 =========
 
-social and collaborative search platform
+A social and collaborative search platform
