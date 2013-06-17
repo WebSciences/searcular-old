@@ -1,4 +1,1 @@
-Searcular
-=========
-
-A social and collaborative search platform
+Searcular: a social search and discovery engine.
