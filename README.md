@@ -11,14 +11,16 @@ Searcular: a social search and discovery engine.
     a) go to folder /var/www/v2.searcular.com/searcular
 
     b) git pull 
+    
+    c) test http://v2.searcular.com particularly the save function
 
-    the following is to make sure the file permissions (may not be necessary)
+    the following is to make sure the file permissions correct(may not be necessary)
 
-    c) sudo chown -R www-data:www-data /var/www 
+    d) sudo chown -R www-data:www-data /var/www 
 
-    d)sudo chmod -R g+rw /var/www
+    e)sudo chmod -R g+rw /var/www
 
-    e)find /var/www -type d -print0 | sudo xargs -0 chmod g+s
+    f)find /var/www -type d -print0 | sudo xargs -0 chmod g+s
     
 
 
