@@ -2,7 +2,7 @@ Searcular: a social search and discovery engine.
 
 1) the git clone is allocated at /var/www/v2.searcular.com/searcular in searcular.com using my account seawan
 
-2) the clone source codes serves v2.searcular.com using apache web server:
+2) the cloned source codes serve http://v2.searcular.com using an apache web server:
     the virtual machine setting can be found at: 
     /etc/apache2/sites-enabled/
 
