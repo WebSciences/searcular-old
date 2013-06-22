@@ -24,3 +24,5 @@
 /.idea/
 *.pyc
 *.swp
+
+.Python

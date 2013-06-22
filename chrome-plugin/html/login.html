@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>SDB Login</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link href="style.css" media="all" type="text/css" rel="stylesheet">
+
+<script src="jquery-1.8.0.js"></script>
+<script>
+            $(document).ready(function(){
+            	
+            	$('.error').hide();
+            	
+                $('#login_btn').click(function(e){
+                     e.preventDefault();
+                                         
+                     alert("Sending out login request.");
+                    
+                     //var remote_login_uri = "http://localhost/sdb-project/remote_services/remote_login.xml";
+                    
+                     var username = $("#username").val();
+                     var password = $("#password").val();
+                    
+                     $.post(remote_login_uri, 
+                             {'id': username, 'password': password}, 
+                             function(data, textStatus){
+                                 
+                         alert(data);
+                    });
+                });
+            });
+        </script>
+</head>
+<body>
+  <div id='login_div'>
+    <form id="login_form" name="login_form" action="">
+      <fieldset>
+        <label id='username_label' for='username'>Username: </label> 
+        <input type="text" id="username" name='username' class='text_input' />
+        <label id='username_error' for='username' class='error'>This field is required.</label> 
+        
+        <label id='password_label' for='password'>Password: </label>         
+        <input type="password" id="password" name='password' class='text_input' /> 
+        <label id='password_error' for='password' class='error'>This field is required.</label> 
+        
+        <br /> 
+        <input type="button" value="Login" id="login_btn" name='login' class='button' />
+      </fieldset>
+    </form>
+  </div>
+</body>
+</html>

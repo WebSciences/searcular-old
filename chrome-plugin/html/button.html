@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Search Daybook</title>
+
+<link href="../css/style.css" media="all" type="text/css" rel="stylesheet">
+
+<script src="../js/jquery-1.8.0.js"></script>
+<script src="../js/jquery-ui-1.8.23/ui/jquery-ui.js"></script>
+<script src="../js/button.js"></script>
+
+</head>
+<body>
+  <div>
+    <form id="sdb-form" name="sdb-form" action="#">
+      <fieldset >
+        <input type="hidden" id="sdb-user-id" />
+        
+        <div>
+        <label id="sdb-title"> </label>
+        </div>
+        
+        <div>
+        <label id="sdb-url"> and this the url</label> 
+        </div>
+        
+        <div>
+        <label>Choose or create a topic: </label>         
+        <select id="sdb-topic-select">
+            <option value="1"> 1</option>
+        </select>  
+        </div>
+        
+        <div>
+        <!-- <input type="button" value="Submit" name='submit' class='button' /> -->
+        <input id ="submit_btn" type="submit" name = "submit" value="Submit"/>
+        </div>
+        
+        <div id="notification">
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</body>
+</html>
