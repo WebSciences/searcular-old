@@ -1,0 +1,30 @@
+{
+	"name": "Searcular",
+	"version": "1.0",
+	"manifest_version": 2,
+	"description": "The Chrome extension for Searcular.",
+	"browser_action": {
+        "default_icon": "images/icon38.png"
+	},
+	"permissions": ["tabs", "http://*/*", "https://*/*"],
+	"content_scripts": [
+		{
+			"matches": ["http://*/*", "https://*/*"],
+			"js": ["js/jquery-1.8.0.js", "js/bloomfilter.js", "js/content_script.js", "js/jquery-ui-1.8.23/ui/jquery-ui.js", "js/tag-it.js", "js/utils.js"],
+			"css": ["css/sdb.css", "js/jquery-ui-1.8.23/themes/custom-theme/jquery-ui-1.8.23.custom.css", "css/jquery.tagit.css"]
+		}
+	],
+	"background": {
+		"scripts": ["js/bloomfilter.js", "js/tag-search-preloaded.js", "js/background.js"]
+	},
+	"web_accessible_resources": [
+    	"images/full_logo_min.png",
+    	"images/grey_logo_min.png",
+    	"images/key.png",
+    	"images/toggle.png",
+    	"images/topics.png",
+    	"images/delete.png",
+        "images/icon19.png",           
+        "images/icon38.png"  
+    ]
+}

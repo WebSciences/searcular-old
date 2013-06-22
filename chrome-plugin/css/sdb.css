@@ -1,0 +1,173 @@
+.sdb-link {
+	margin: 2px 10px 0 0;
+}
+
+.sdb-fieldset {
+	width: 444px;
+	height: 400px;
+	border: 1px solid #eee;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+	padding: 5px;
+	margin: 5px 0px 0px 2px;
+}
+
+.sdb-tabs {
+	width: 444px;
+	height: 400px;
+	border: 1px solid #eee;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+	padding: 5px;
+	margin: 5px 0px 0px 2px;
+    /*overflow-y: scroll;*/
+    overflow-x: hidden;
+}
+
+.sdb-legend {
+	font: 16px arial;
+	background: #fff;
+	margin: -8px 0px 0px 10px;
+	padding: 0px 15px 0px 15px;
+}
+
+.sdb-li {
+	margin: 0;
+	font: 16px arial;
+	padding: 15px 15px 5px 15px;
+	list-style-type: none;
+	width: 100%;
+	border-bottom: 1px solid #E8E8E8;
+}
+
+.sdb-li:hover{
+	background-color: #E8E8E8;
+	cursor: pointer;
+}
+
+.sdb-li a:link, .sdb-li a:visited{
+	color: #0088cc;
+	font-size: 14px;
+	text-decoration: none;
+}
+
+.sdb-li-cite {
+    color: #999;
+    font-size: 13px;
+}
+
+.sdb-li a:hover{
+	color: #666;
+}
+
+.sdb-ul {
+	margin: 0 0 0 -20px;
+}
+
+.sdb-dialog {
+	font: normal 16px arial;
+	color: black;
+	padding: 15px 0 15px 0;
+	margin: 0;
+	border: 0;
+	text-decoration: none;
+	text-align: left;
+	width: 100%;
+	height: auto;
+}
+
+.sdb-topic-input {
+	background-color: white;
+	border: solid 1px gray;
+	margin: 0;
+	width: 560px;
+	height: 31px; text-weight : bold;
+	text-align: center;
+	vertical-align: middle;
+	text-weight: bold;
+}
+
+.sdb-topic-button {
+	weight: 10px;
+	height: 33px;
+	vertical-align: middle;
+ 	margin-top: 1px; 
+}
+
+.sdb-success {
+	font: 24px arial;
+	text-weight: bold;
+	vertical-align: middle;
+}
+
+#sdb-dialog div {
+	margin: 5px 0 5px 0;
+}
+
+.sdb-dialog-link-div{
+	text-align: right;
+}
+
+.sdb-more-details{
+	font-size: 13px;
+	padding: 5px 0px 0px 0px;
+}
+
+.sdb-more-details a:link, .sdb-more-details a:visited{
+	font-size: 10px;
+}
+
+.sdb-expand-link{
+	float: left;
+}
+
+.sdb-more-actions{
+	float: left;
+	margin-left: 10px;
+	display: none;
+}
+
+.sdb-expand{
+	display: none;
+	padding: 0px 0px 0px 10px;
+}
+
+.sdb-expand textarea{
+	-webkit-border-radius: 5px;
+	width: 350px;
+	height: 30px;
+}
+
+.sdb-expand textarea:focus{
+	outline: none
+}
+
+.sdb-reply{
+	display: none;
+	float: right;
+	margin-right: 50px;
+	padding: 0px 0px 0px 0px;
+}
+
+.sdb-reply a:link, .sdb-reply a:visited{
+   background: #ccc;
+   padding: 4px 4px;
+   -webkit-border-radius: 4px;
+   color: white;
+   font-size: 10px;
+   text-decoration: none;
+   vertical-align: middle;
+}
+
+.sdb-reply a:hover {
+   border-top-color: #4f4f4f;
+   background: #4f4f4f;
+   color: #ccc;
+}
+
+/* plugin user menu */
+#user_menu{
+    display:none;
+}
