@@ -20,10 +20,23 @@ class Migration(SchemaMigration):
         ))
         db.send_create_signal(u'core', ['Pin'])
 
+        # Adding model 'Rawquerylog'
+        db.create_table(u'core_rawquerylog', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('submitter', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
+            ('timestamp', self.gf('django.db.models.fields.IntegerField')()),
+            ('action', self.gf('django.db.models.fields.CharField')(max_length=2)),
+            ('additional', self.gf('django.db.models.fields.CharField')(default='none', max_length=500, null=True, blank=True)),
+        ))
+        db.send_create_signal(u'core', ['Rawquerylog'])
+
 
     def backwards(self, orm):
         # Deleting model 'Pin'
         db.delete_table(u'core_pin')
+
+        # Deleting model 'Rawquerylog'
+        db.delete_table(u'core_rawquerylog')
 
 
     models = {
@@ -72,6 +85,14 @@ class Migration(SchemaMigration):
             'published': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
             'submitter': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']"}),
             'url': ('django.db.models.fields.URLField', [], {'max_length': '200', 'null': 'True'})
+        },
+        u'core.rawquerylog': {
+            'Meta': {'object_name': 'Rawquerylog'},
+            'action': ('django.db.models.fields.CharField', [], {'max_length': '2'}),
+            'additional': ('django.db.models.fields.CharField', [], {'default': "'none'", 'max_length': '500', 'null': 'True', 'blank': 'True'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'submitter': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']"}),
+            'timestamp': ('django.db.models.fields.IntegerField', [], {})
         },
         u'django_images.image': {
             'Meta': {'object_name': 'Image'},

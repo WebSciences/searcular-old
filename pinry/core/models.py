@@ -47,3 +47,18 @@ class Pin(models.Model):
 
     def __unicode__(self):
         return self.url
+
+class Rawquerylog(models.Model):
+    ACTION_CHOICES = (
+        ('EQ', 'enter or renew'),
+        ('CR', 'create new page'),
+        ('JP', 'jump to new page'),
+        ('SW', 'swith page'),
+        ('CL', 'close page'),
+        ('LQ', 'leave'),
+    )
+    submitter = models.ForeignKey(User)
+    timestamp = models.IntegerField()
+    action = models.CharField(max_length=2,choices=ACTION_CHOICES)
+    additional = models.CharField(default="none",max_length=500,null=True, blank=True)
+

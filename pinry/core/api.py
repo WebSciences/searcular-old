@@ -1,5 +1,5 @@
 from tastypie import fields
-from tastypie.authorization import DjangoAuthorization
+from tastypie.authorization import DjangoAuthorization,Authorization
 from tastypie.constants import ALL, ALL_WITH_RELATIONS
 from tastypie.exceptions import Unauthorized
 from tastypie.resources import ModelResource
@@ -7,6 +7,7 @@ from django_images.models import Thumbnail
 
 from .models import Pin, Image
 from ..users.models import User
+from .models import Rawquerylog
 
 
 class PinryAuthorization(DjangoAuthorization):
@@ -140,3 +141,13 @@ class PinResource(ModelResource):
         include_resource_uri = False
         always_return_data = True
         authorization = PinryAuthorization()
+
+
+
+
+class RawquerylogResource(ModelResource):
+    submitter = fields.ForeignKey(UserResource, 'submitter')
+    class Meta:
+        queryset = Rawquerylog.objects.all()
+        resource_name = 'rawquerylog'
+        authorization = Authorization()

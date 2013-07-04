@@ -85,9 +85,11 @@ INSTALLED_APPS = (
     'south',
     'taggit',
     'compressor',
+    'tastypie',
     'django_images',
     'pinry.core',
     'pinry.users',
+    
 )
 
 IMAGE_PATH = 'pinry.core.utils.upload_path'
