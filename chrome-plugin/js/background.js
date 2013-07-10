@@ -5,6 +5,13 @@ var querySessionlog = [];
 var APIURL = "http://localhost:8000/api/v1/"
 timerId = window.setInterval(countDown,1000);
 
+var sercularOath2 = new OAuth2('searcular', {
+  client_id: '7ef34ce019f2baa0eb16',
+  client_secret: '956f0d808098835a23e508701c4b918b1377089b',
+  api_scope: 'write'
+});
+sercularOath2.authorize();
+
 chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
     if (request.action.match('setCurrentModuleState') != null) {
         
@@ -52,6 +59,16 @@ chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
 		sendResponse({
 			"keywords" : lastQuery 
 		});
+
+	}else if (request.action.match('getAccessToken') != null) {
+		sercularOath2.authorize(function() {
+			sendResponse({
+				"token" : sercularOath2.getAccessToken()
+			});
+  
+
+		});
+		
 
 	}
 });
@@ -105,7 +122,7 @@ function countDown(){
 
 
 function queryAction(timestamp,action,additional){
-	this.submitter = "/api/v1/user/1/";
+	
 	this.timestamp = timestamp;
 	this.action = action ;
 	this.additional = additional;
@@ -182,7 +199,10 @@ function leaveQuerySession(){
 	querySessionlog=[];
 	console.log(jsondata);
 	$.ajax({
-    	url: APIURL+"rawquerylog/",
+		beforeSend: function (request){
+            request.setRequestHeader('Authorization','OAuth '+sercularOath2.getAccessToken());
+        },
+    	url: APIURL+'rawquerylog/',
    		type: 'PATCH',
   		contentType: 'application/json',
   		data: jsondata,

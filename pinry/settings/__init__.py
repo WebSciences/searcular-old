@@ -78,6 +78,7 @@ API_LIMIT_PER_PAGE = 50
 
 INSTALLED_APPS = (
     'django.contrib.auth',
+    'django.contrib.admin',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -85,8 +86,9 @@ INSTALLED_APPS = (
     'south',
     'taggit',
     'compressor',
-    'tastypie',
     'django_images',
+    'provider',
+    'provider.oauth2',
     'pinry.core',
     'pinry.users',
     
@@ -98,3 +100,5 @@ IMAGE_SIZES = {
     'standard': {'size': [600, 0]},
     'square': {'crop': True, 'size': [125, 125]},
 }
+
+

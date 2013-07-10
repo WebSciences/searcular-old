@@ -4,6 +4,7 @@ from tastypie.constants import ALL, ALL_WITH_RELATIONS
 from tastypie.exceptions import Unauthorized
 from tastypie.resources import ModelResource
 from django_images.models import Thumbnail
+from authentication import OAuth20Authentication
 
 from .models import Pin, Image
 from ..users.models import User
@@ -150,4 +151,13 @@ class RawquerylogResource(ModelResource):
     class Meta:
         queryset = Rawquerylog.objects.all()
         resource_name = 'rawquerylog'
-        authorization = Authorization()
+        authorization = DjangoAuthorization()
+        #authorization = Authorization()
+        authentication = OAuth20Authentication()
+
+    def hydrate(self, bundle):
+        submitter = bundle.data.get('submitter', None)
+        if not submitter:
+            bundle.data['submitter'] = '/api/v1/user/{}/'.format(bundle.request.user.pk)
+        
+        return bundle
