@@ -1,7 +1,7 @@
 import os
-
+# import djcelery
 from django.contrib.messages import constants as messages
-
+# djcelery.setup_loader()
 
 SITE_ROOT = os.path.join(os.path.realpath(os.path.dirname(__file__)), '../../')
 
@@ -46,6 +46,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'pinry.users.middleware.Public',
+    'pinry.core.middleware.Public',
 )
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.auth.context_processors.auth',
@@ -91,6 +92,7 @@ INSTALLED_APPS = (
     'provider.oauth2',
     'pinry.core',
     'pinry.users',
+    
     
 )
 

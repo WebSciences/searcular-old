@@ -22,7 +22,9 @@ install_requires = [
     'django_compressor',
     'requests',
     'django-images',
-    'django-taggit'
+    'django-taggit',
+    'django-celery-with-redis',
+    'django-oauth2-provider',
 ]
 
 setup(

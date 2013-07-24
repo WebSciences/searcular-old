@@ -61,6 +61,7 @@
                 <a href="{% url 'core:recent-pins' %}" class="brand pull-left">{{ SITE_NAME }}</a>
                 <ul class="nav pull-right">
                 {% if user.is_authenticated %}
+		     <li><a href="profile/">Personal Profile</a></li>
                     <li>{% include "includes/bookmarklet_link.html" %}</li>
                     <li><a onclick="pinForm()">New Pin</a></li>
                     <li><a href="{% url 'users:logout' %}">Logout</a></li>
@@ -89,6 +90,7 @@
 
         <!-- Content -->
         {% block yield %}{% endblock %}
+	{% block profile %}{% endblock %}
         <!-- End Content -->
 
         <!-- Templates -->

@@ -8,123 +8,14 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding model 'Query'
-        db.create_table(u'core_query', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('keyword', self.gf('django.db.models.fields.TextField')(null=True, blank=True)),
-        ))
-        db.send_create_signal(u'core', ['Query'])
 
-        # Adding model 'Pin'
-        db.create_table(u'core_pin', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('submitter', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
-            ('url', self.gf('django.db.models.fields.URLField')(max_length=200, null=True)),
-            ('origin', self.gf('django.db.models.fields.URLField')(max_length=200, null=True)),
-            ('description', self.gf('django.db.models.fields.TextField')(null=True, blank=True)),
-            ('image', self.gf('django.db.models.fields.related.ForeignKey')(related_name='pin', to=orm['django_images.Image'])),
-            ('published', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
-        ))
-        db.send_create_signal(u'core', ['Pin'])
-
-        # Adding model 'Webpageurl'
-        db.create_table(u'core_webpageurl', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('url', self.gf('django.db.models.fields.URLField')(max_length=200, null=True)),
-            ('query', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['core.Query'])),
-        ))
-        db.send_create_signal(u'core', ['Webpageurl'])
-
-        # Adding model 'Queryitem'
-        db.create_table(u'core_queryitem', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('objectid', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['core.Pin'])),
-            ('query', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['core.Query'])),
-        ))
-        db.send_create_signal(u'core', ['Queryitem'])
-
-        # Adding model 'Userquerysession'
-        db.create_table(u'core_userquerysession', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('submitter', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
-            ('created_time', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, null=True, blank=True)),
-            ('last_query', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['core.Query'], null=True, blank=True)),
-        ))
-        db.send_create_signal(u'core', ['Userquerysession'])
-
-        # Adding model 'Querysessiondetail'
-        db.create_table(u'core_querysessiondetail', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('querysession', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['core.Userquerysession'])),
-            ('submitter', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
-            ('timestamp', self.gf('django.db.models.fields.IntegerField')()),
-            ('tab_id', self.gf('django.db.models.fields.CharField')(max_length=4, null=True, blank=True)),
-            ('parent', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['core.Querysessiondetail'], null=True, blank=True)),
-            ('action', self.gf('django.db.models.fields.CharField')(max_length=2)),
-            ('url', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['core.Webpageurl'], null=True, blank=True)),
-            ('query', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['core.Query'], null=True, blank=True)),
-            ('iscompleted', self.gf('django.db.models.fields.BooleanField')(default=False)),
-        ))
-        db.send_create_signal(u'core', ['Querysessiondetail'])
-
-        # Adding model 'Comments'
-        db.create_table(u'core_comments', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('submitter', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
-            ('comment', self.gf('django.db.models.fields.CharField')(default='none', max_length=500, null=True, blank=True)),
-            ('timestamp', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
-            ('objectid', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['core.Pin'])),
-        ))
-        db.send_create_signal(u'core', ['Comments'])
-
-        # Adding model 'Like'
-        db.create_table(u'core_like', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('objectid', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['core.Pin'])),
-            ('number', self.gf('django.db.models.fields.IntegerField')(default='0')),
-        ))
-        db.send_create_signal(u'core', ['Like'])
-
-        # Adding model 'Rawquerylog'
-        db.create_table(u'core_rawquerylog', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('submitter', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
-            ('timestamp', self.gf('django.db.models.fields.IntegerField')()),
-            ('action', self.gf('django.db.models.fields.CharField')(max_length=2)),
-            ('additional', self.gf('django.db.models.fields.CharField')(default='none', max_length=500, null=True, blank=True)),
-            ('isprocessed', self.gf('django.db.models.fields.BooleanField')(default=False)),
-        ))
-        db.send_create_signal(u'core', ['Rawquerylog'])
-
+        # Changing field 'Querysessiondetail.timestamp'
+        db.alter_column(u'core_querysessiondetail', 'timestamp', self.gf('django.db.models.fields.DateTimeField')())
 
     def backwards(self, orm):
-        # Deleting model 'Query'
-        db.delete_table(u'core_query')
 
-        # Deleting model 'Pin'
-        db.delete_table(u'core_pin')
-
-        # Deleting model 'Webpageurl'
-        db.delete_table(u'core_webpageurl')
-
-        # Deleting model 'Queryitem'
-        db.delete_table(u'core_queryitem')
-
-        # Deleting model 'Userquerysession'
-        db.delete_table(u'core_userquerysession')
-
-        # Deleting model 'Querysessiondetail'
-        db.delete_table(u'core_querysessiondetail')
-
-        # Deleting model 'Comments'
-        db.delete_table(u'core_comments')
-
-        # Deleting model 'Like'
-        db.delete_table(u'core_like')
-
-        # Deleting model 'Rawquerylog'
-        db.delete_table(u'core_rawquerylog')
-
+        # Changing field 'Querysessiondetail.timestamp'
+        db.alter_column(u'core_querysessiondetail', 'timestamp', self.gf('django.db.models.fields.IntegerField')())
 
     models = {
         u'auth.group': {
@@ -208,7 +99,7 @@ class Migration(SchemaMigration):
             'querysession': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['core.Userquerysession']"}),
             'submitter': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']"}),
             'tab_id': ('django.db.models.fields.CharField', [], {'max_length': '4', 'null': 'True', 'blank': 'True'}),
-            'timestamp': ('django.db.models.fields.IntegerField', [], {}),
+            'timestamp': ('django.db.models.fields.DateTimeField', [], {}),
             'url': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['core.Webpageurl']", 'null': 'True', 'blank': 'True'})
         },
         u'core.rawquerylog': {

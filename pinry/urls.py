@@ -9,6 +9,7 @@ urlpatterns = patterns('',
                        url(r'', include('pinry.core.urls', namespace='core')),
                        url(r'', include('pinry.users.urls', namespace='users')),
                        url(r'^oauth2/', include('provider.oauth2.urls', namespace = 'oauth2')),
+                       url(r'^admin/', include(admin.site.urls)),
                        )
 if settings.DEBUG:
     urlpatterns += staticfiles_urlpatterns()

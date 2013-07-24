@@ -1,16 +1,17 @@
 var lastQuery, userID, lastTopic = -1, currentModuleState = 0 , currentTabId , timerId = undefined,queryTimelimit = 0; //120 seconds
 var TIMELIMIT = 30;
+var INSESSION = false;
 var onUpdateCounter={};
 var querySessionlog = [];
 var APIURL = "http://localhost:8000/api/v1/"
 timerId = window.setInterval(countDown,1000);
 
-var sercularOath2 = new OAuth2('searcular', {
-  client_id: '7ef34ce019f2baa0eb16',
-  client_secret: '956f0d808098835a23e508701c4b918b1377089b',
+var searcularOath2 = new OAuth2('searcular', {
+  client_id: 'f9c1bae56a4d35712430',
+  client_secret: '404cb42772c6aff12262dd56bda5b1f30c48cb01',
   api_scope: 'write'
 });
-sercularOath2.authorize();
+searcularOath2.authorize();
 
 chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
     if (request.action.match('setCurrentModuleState') != null) {
@@ -61,9 +62,9 @@ chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
 		});
 
 	}else if (request.action.match('getAccessToken') != null) {
-		sercularOath2.authorize(function() {
+		searcularOath2.authorize(function() {
 			sendResponse({
-				"token" : sercularOath2.getAccessToken()
+				"token" : searcularOath2.getAccessToken()
 			});
   
 
@@ -90,8 +91,14 @@ function countDown(){
 				var callback = function(tab){
 					
 					if(tab.url.indexOf("https://www.google.c")==0&&tab.url.indexOf("q=")>0){
+						if(!INSESSION){
+							enterQuerySession();
+						}else{
+							//refresh querysession
+							queryTimelimit = TIMELIMIT;
+						}
+						
 
-						enterQuerySession();
 					}
 					if(queryTimelimit>0){
 						var timestamp = (new Date).getTime();
@@ -129,7 +136,7 @@ function queryAction(timestamp,action,additional){
 }
 
 function enterQuerySession(){
-	
+	INSESSION = true ; 
 	queryTimelimit = TIMELIMIT;
 	var timestamp  = (new Date).getTime();
 			querySessionlog.push(new queryAction(timestamp,"EQ",currentTabId));
@@ -157,6 +164,7 @@ function leaveQuerySession(){
 	var timestamp  = (new Date).getTime();
 	querySessionlog.push(new queryAction(timestamp,"LQ",""));
 	console.log((new Date).getTime()+"    leaveQuerySession");
+	INSESSION = false;
 	
 	var tabUrlMap = buildTabURLMap();
 	
@@ -166,24 +174,33 @@ function leaveQuerySession(){
 		var additional = querySessionlog[i].additional;
 		if("JP" == action){
 			var tabId = additional;
-			if(updatePointer[tabId]==0){
-				querySessionlog[i].additional = (tabUrlMap[tabId])[0]; 
+			if((tabUrlMap[tabId])[updatePointer[tabId]]==0){
+				querySessionlog[i].additional = tabId+" "+(tabUrlMap[tabId])[0]; 
+				updatePointer[tabId]++;
 			}else{
-				querySessionlog[i].additional = (tabUrlMap[tabId])[++updatePointer[tabId]]; 
+				if ((tabUrlMap[tabId])[updatePointer[tabId]]!=(tabUrlMap[tabId])[updatePointer[tabId]-1]){
+
+					querySessionlog[i].additional = tabId+" "+(tabUrlMap[tabId])[updatePointer[tabId]++]; 
+				}else{
+					querySessionlog[i].additional = "";
+				}	
 			}
 			
+			
+			
+			
 		}else if("SW" == action || "CL" == action ){
-			var tabId = additional;
-			querySessionlog[i].additional = (tabUrlMap[tabId])[updatePointer[tabId]];
+			// var tabId = additional;
+			// querySessionlog[i].additional = (tabUrlMap[tabId])[updatePointer[tabId]];
 		}else if("EQ" == action){
-			var tabId = additional;
-			querySessionlog[i].additional = (tabUrlMap[tabId])[updatePointer[tabId]];
+			// var tabId = additional;
+			// querySessionlog[i].additional = (tabUrlMap[tabId])[updatePointer[tabId]];
 
 		}else if("CR" == action){
-			var tabIdArray = additional.split(" ");
-			var newTabId  = tabIdArray[0];
-			var sourceTabId = tabIdArray[1];
-			querySessionlog[i].additional = (tabUrlMap[tabId])[updatePointer[newTabId]]+" "+(tabUrlMap[tabId])[updatePointer[sourceTabId]];
+			// var tabIdArray = additional.split(" ");
+			// var newTabId  = tabIdArray[0];
+			// var sourceTabId = tabIdArray[1];
+			// querySessionlog[i].additional = (tabUrlMap[tabId])[updatePointer[newTabId]]+" "+(tabUrlMap[tabId])[updatePointer[sourceTabId]];
 			                                                //new                               //source
 
 		}
@@ -200,15 +217,22 @@ function leaveQuerySession(){
 	console.log(jsondata);
 	$.ajax({
 		beforeSend: function (request){
-            request.setRequestHeader('Authorization','OAuth '+sercularOath2.getAccessToken());
+            request.setRequestHeader('Authorization','OAuth '+searcularOath2.getAccessToken());
         },
     	url: APIURL+'rawquerylog/',
    		type: 'PATCH',
   		contentType: 'application/json',
   		data: jsondata,
   		dataType: 'json',
-  		processData: false
+  		processData: false,
+  		statusCode: {
+    		401: function() {
+      			alert("Searcular authentication failed,click 'ok' to re-authenticate.");
+      			searcularOath2.clear();
+      			searcularOath2.authorize();
 
+    		}
+  		}
    		
 	});
 
