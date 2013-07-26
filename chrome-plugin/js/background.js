@@ -3,12 +3,12 @@ var TIMELIMIT = 30;
 var INSESSION = false;
 var onUpdateCounter={};
 var querySessionlog = [];
-var APIURL = "http://localhost:8000/api/v1/"
+var APIURL = "http://v2.searcular.com/api/v1/"
 timerId = window.setInterval(countDown,1000);
 
 var searcularOath2 = new OAuth2('searcular', {
-  client_id: 'f9c1bae56a4d35712430',
-  client_secret: '404cb42772c6aff12262dd56bda5b1f30c48cb01',
+  client_id: 'fb746eac6af87f5fa720',
+  client_secret: 'bfffa96c637735d7fc0384ec143bff3537df81a8',
   api_scope: 'write'
 });
 searcularOath2.authorize();

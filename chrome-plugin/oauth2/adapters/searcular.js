@@ -1,9 +1,12 @@
+REMOTE_HOST = 'http://v2.searcular.com';
+
 OAuth2.adapter('searcular', {
   /**
    * @return {URL} URL to the page that returns the authorization code
    */
+  
   authorizationCodeURL: function(config) {
-    return ('http://localhost:8000/oauth2/authorize/?' +
+    return (REMOTE_HOST+'/oauth2/authorize/?' +
       'client_id={{CLIENT_ID}}&' +
       'redirect_uri={{REDIRECT_URI}}&' +
       'scope={{API_SCOPE}}&'+
@@ -37,7 +40,7 @@ OAuth2.adapter('searcular', {
    * @return {URL} URL to the access token providing endpoint
    */
   accessTokenURL: function() {
-    return 'http://localhost:8000/oauth2/access_token';
+    return REMOTE_HOST+'/oauth2/access_token';
   },
 
   /**
