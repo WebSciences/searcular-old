@@ -1,7 +1,7 @@
 import os
-
+# import djcelery
 from django.contrib.messages import constants as messages
-
+# djcelery.setup_loader()
 
 SITE_ROOT = os.path.join(os.path.realpath(os.path.dirname(__file__)), '../../')
 
@@ -46,6 +46,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'pinry.users.middleware.Public',
+    'pinry.core.middleware.Public',
 )
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.auth.context_processors.auth',
@@ -78,6 +79,7 @@ API_LIMIT_PER_PAGE = 50
 
 INSTALLED_APPS = (
     'django.contrib.auth',
+    'django.contrib.admin',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -86,8 +88,12 @@ INSTALLED_APPS = (
     'taggit',
     'compressor',
     'django_images',
+    'provider',
+    'provider.oauth2',
     'pinry.core',
     'pinry.users',
+    
+    
 )
 
 IMAGE_PATH = 'pinry.core.utils.upload_path'
@@ -96,3 +102,5 @@ IMAGE_SIZES = {
     'standard': {'size': [600, 0]},
     'square': {'crop': True, 'size': [125, 125]},
 }
+
+

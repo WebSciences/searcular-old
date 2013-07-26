@@ -1,12 +1,14 @@
 from tastypie import fields
-from tastypie.authorization import DjangoAuthorization
+from tastypie.authorization import DjangoAuthorization,Authorization
 from tastypie.constants import ALL, ALL_WITH_RELATIONS
 from tastypie.exceptions import Unauthorized
-from tastypie.resources import ModelResource
+from tastypie.resources import ModelResource,Resource
 from django_images.models import Thumbnail
+from authentication import OAuth20Authentication
 
 from .models import Pin, Image
 from ..users.models import User
+from .models import Rawquerylog
 
 
 class PinryAuthorization(DjangoAuthorization):
@@ -140,3 +142,67 @@ class PinResource(ModelResource):
         include_resource_uri = False
         always_return_data = True
         authorization = PinryAuthorization()
+
+class dict2obj(object):
+    """
+    Convert dictionary to object
+    @source http://stackoverflow.com/a/1305561/383912
+    """
+    def __init__(self, d=None):
+        self.__dict__['d'] = d
+ 
+    def __getattr__(self, key):
+        value = self.__dict__['d'][key]
+        if type(value) == type({}):
+            return dict2obj(value)
+ 
+        return value
+ 
+class BlogResource(Resource):
+    title = fields.CharField(attribute='title')
+    content = fields.CharField(attribute='content')
+    author = fields.CharField(attribute='author_name')
+ 
+    class Meta:
+        resource_name = 'blogs'
+        object_class = dict2obj
+ 
+    def obj_get_list(self, request=None, **kwargs):
+        print 'noorm'
+        posts = []
+        #your actual logic to retrieve contents from external source.
+ 
+        #example
+        posts.append(dict2obj(
+
+            {
+                'title': 'Test Blog Title 1',
+                'content': 'Blog Content',
+                'author_name': 'User 1'
+            }
+        ))
+        posts.append(dict2obj(
+            {
+                'title': 'Test Blog Title 2',
+                'content': 'Blog Content 2',
+                'author_name': 'User 2'
+            }
+        ))
+ 
+        return posts
+
+class RawquerylogResource(ModelResource):
+    submitter = fields.ForeignKey(UserResource, 'submitter')
+    class Meta:
+        queryset = Rawquerylog.objects.all()
+        resource_name = 'rawquerylog'
+        authorization = DjangoAuthorization()
+        #authorization = Authorization()
+        authentication = OAuth20Authentication()
+
+    def hydrate(self, bundle):
+        submitter = bundle.data.get('submitter', None)
+        if not submitter:
+            bundle.data['submitter'] = '/api/v1/user/{}/'.format(bundle.request.user.pk)
+        
+        return bundle

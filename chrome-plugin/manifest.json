@@ -6,16 +6,21 @@
 	"browser_action": {
         "default_icon": "images/icon38.png"
 	},
-	"permissions": ["tabs", "http://*/*", "https://*/*"],
+	"permissions": ["tabs" ,"http://*/*", "https://*/*"],
 	"content_scripts": [
 		{
 			"matches": ["http://*/*", "https://*/*"],
-			"js": ["js/jquery-1.8.0.js", "js/bloomfilter.js", "js/content_script.js", "js/jquery-ui-1.8.23/ui/jquery-ui.js", "js/tag-it.js", "js/utils.js"],
+			"js": ["js/jquery-1.8.0.js", "js/bloomfilter.js", "js/content_script.js", "js/jquery-ui-1.8.23/ui/jquery-ui.js", "js/tag-it.js", "js/utils.js","oauth2/oauth2.js"],
 			"css": ["css/sdb.css", "js/jquery-ui-1.8.23/themes/custom-theme/jquery-ui-1.8.23.custom.css", "css/jquery.tagit.css"]
-		}
+		},
+		{
+      		"matches": ["http://blog.wingssyi.me/*"],
+      		"js": ["oauth2/oauth2_inject.js"],
+      		"run_at": "document_start"
+    	}
 	],
 	"background": {
-		"scripts": ["js/bloomfilter.js", "js/tag-search-preloaded.js", "js/background.js"]
+		"scripts": ["oauth2/oauth2.js","js/bloomfilter.js", "js/tag-search-preloaded.js","js/background.js","js/jquery-1.8.0.js"]
 	},
 	"web_accessible_resources": [
     	"images/full_logo_min.png",
