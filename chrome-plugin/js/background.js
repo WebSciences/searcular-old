@@ -96,6 +96,9 @@ function countDown(){
 						}else{
 							//refresh querysession
 							queryTimelimit = TIMELIMIT;
+							var timestamp  = (new Date).getTime();
+							querySessionlog.push(new queryAction(timestamp,"RN",tab.id));
+						    console.log(timestamp+"renew querysesion");
 						}
 						
 

@@ -19,17 +19,20 @@ def upload_path(instance, filename, **kwargs):
 
 def extract_query_from_url(url):
     #get original url and it's fragment if exists
-    
+    keyword = ''
     url_tuple = urldefrag(url)
     if url_tuple[1] :
         #fragment exists , extract query from fragment
         result = parse_qs(url_tuple[1])
         query = result['q']
+        keyword = query[0]
     else:
         #no fragment , extract query from url
         url_object = urlparse(url_tuple[0])
         result = parse_qs(url_object.query)
-        query = result['q']
-    query[0] = unicode(query[0],'utf8')
-    return query[0]
+        if 'q' in result.keys():
+            query = result['q']
+            keyword = query[0]
+    #query[0] = unicode(query[0],'utf8')
+    return keyword
 
