@@ -1,5 +1,5 @@
 var lastQuery, userID, lastTopic = -1, currentModuleState = 0 , currentTabId , timerId = undefined,queryTimelimit = 0; //120 seconds
-var TIMELIMIT = 30;
+var TIMELIMIT = 45;
 var INSESSION = false;
 var onUpdateCounter={};
 var querySessionlog = [];
