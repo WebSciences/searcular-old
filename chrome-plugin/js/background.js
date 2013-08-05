@@ -98,7 +98,7 @@ function countDown(){
 							queryTimelimit = TIMELIMIT;
 							var timestamp  = (new Date).getTime();
 							querySessionlog.push(new queryAction(timestamp,"RN",tab.id));
-						    console.log(timestamp+"renew querysesion");
+						    console.log(timestamp+"   renew querysesion");
 						}
 						
 
