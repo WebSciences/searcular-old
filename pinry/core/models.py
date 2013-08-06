@@ -71,7 +71,8 @@ class Userquerysession(models.Model):
 
 class Querysessiondetail(models.Model):
     ACTION_CHOICES = (
-        ('EQ', 'enter or renew'),
+        ('EQ', 'enter'),
+        ('RN', 'renew'),
         ('SR', 'search'),
         ('CR', 'create new page'),
         ('JP', 'jump to new page'),
@@ -121,14 +122,22 @@ class RawquerylogManager(models.Manager):
                     querysession_obj = Userquerysession.objects.create(submitter = user_obj)
 
                     tab_id = item.additional
+                    detail_obj = Querysessiondetail.objects.create(submitter = item.submitter,
+                        timestamp = datetime.datetime.fromtimestamp(item.timestamp / 1e3),
+                        action = item.action,tab_id = tab_id,
+                        querysession = querysession_obj)
+                    parent_dict[tab_id] = detail_obj
                     
+                elif item.action =='RN':
+                    #renew query session
+                    tab_id = item.additional
                     detail_obj = Querysessiondetail.objects.create(submitter = item.submitter,
                         timestamp = datetime.datetime.fromtimestamp(item.timestamp / 1e3),
                         action = item.action,
                         tab_id = tab_id,
                         querysession = querysession_obj)
                     parent_dict[tab_id] = detail_obj
-                    
+               
                 elif item.action =='CR':
                     additional_list = item.additional.split();
                     old_tab_id = additional_list[1]
@@ -149,20 +158,20 @@ class RawquerylogManager(models.Manager):
                     if item.additional :
                         additional_list = item.additional.split()
                         tab_id = additional_list[0]
-                        if parent_dict[tab_id]:
+                        if tab_id in parent_dict.keys():
 
                             url = additional_list[1]
-                            print url
+                            
                             # if it is a google url
                             url_element = urlparse(url)
+                            
 
-                            if url_element.netloc.find('www.google.')>=0 and url_element.path.find('search')>=0:
+                            if url_element.netloc.find('www.google.')>=0 and extract_query_from_url(url):
                             #extract the query term
                                 query_term = extract_query_from_url(url)
                             #save the query term
                                 query_obj,created = Query.objects.get_or_create(keyword = query_term)
-                                querysession_obj.last_query = query_obj
-                            
+                                querysession_obj.last_query = query_obj        
                                 detail_obj = Querysessiondetail.objects.create(submitter = user_obj,
                                     timestamp = datetime.datetime.fromtimestamp(item.timestamp / 1e3),
                                     action = 'SR',
@@ -175,8 +184,10 @@ class RawquerylogManager(models.Manager):
                                 parent_dict[tab_id] = detail_obj
 
                             #no google url
-                            else:
+                            elif parent_dict[tab_id].query:
                             #save url object
+                            #skip image search
+                                
                                 url_obj , created = Webpageurl.objects.get_or_create(url = url ,
                                     query = parent_dict[tab_id].query)
 
@@ -194,13 +205,13 @@ class RawquerylogManager(models.Manager):
 
                 elif item.action == 'SW' or item.action == 'CL':
                     tab_id = item.additional
-                    
-                    detail_obj = Querysessiondetail.objects.create(submitter = item.submitter,
-                        timestamp = datetime.datetime.fromtimestamp(item.timestamp / 1e3),
-                        action = item.action,
-                        tab_id = tab_id,
-                        parent = parent_dict[tab_id],
-                        querysession = querysession_obj)
+                    if tab_id in parent_dict.keys():
+                        detail_obj = Querysessiondetail.objects.create(submitter = item.submitter,
+                            timestamp = datetime.datetime.fromtimestamp(item.timestamp / 1e3),
+                            action = item.action,
+                            tab_id = tab_id,
+                            parent = parent_dict[tab_id],
+                            querysession = querysession_obj)
                 
                 elif item.action == 'LQ':
                     detail_obj = Querysessiondetail.objects.create(submitter = item.submitter,
@@ -219,7 +230,8 @@ class RawquerylogManager(models.Manager):
 
 class Rawquerylog(models.Model):
     ACTION_CHOICES = (
-        ('EQ', 'enter or renew'),
+        ('EQ', 'enter'),
+        ('RN', 'renew'),
         ('CR', 'create new page'),
         ('JP', 'jump to new page'),
         ('SW', 'swith page'),
