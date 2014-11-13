@@ -1,0 +1,41 @@
+{
+  "manifest_version": 2,
+
+  "name": "Searcular",
+  "description": "This extension is a crowd sourced search engine",
+  "version": "1.0",
+  
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "include_globs": [
+        "*://www.google.c??/",
+        "*://www.google.c??/*q=*",
+        "*://www.google.c??/search*q=*",
+        "*://www.google.com.??/",
+        "*://www.google.com.??/*q=*",
+        "*://www.google.com.??/search*q=*",
+        "*://www.google.co.??/",
+        "*://www.google.co.??/*q=*",
+        "*://www.google.co.??/search*q=*",
+        "*://www.google.??/*q=*",
+        "*://www.google.??/search*q=*"
+      ],
+      "js": ["contentscript.js"],
+      "run_at": "document_end"
+    }
+  ],
+
+  "permissions": [
+    "tabs","http://*/*", "https://*/*","contextMenus","webNavigation"
+  ],
+  
+  "background": {
+    "scripts": ["jquery.js","background.js","URI.js"]
+  },
+  
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_popup": "popup.html"
+  }
+}
