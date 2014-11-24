@@ -21,7 +21,7 @@
         "*://www.google.??/*q=*",
         "*://www.google.??/search*q=*"
       ],
-      "js": ["contentscript.js"],
+      "js": ["js/contentscript.js"],
       "run_at": "document_end"
     }
   ],
@@ -31,11 +31,10 @@
   ],
   
   "background": {
-    "scripts": ["jquery.js","background.js","URI.js"]
+    "scripts": ["js/jquery.js","js/background.js","js/URI.js"]
   },
   
   "browser_action": {
-    "default_icon": "icon.png",
-    "default_popup": "popup.html"
+    "default_icon": "img/icon.png",
   }
 }

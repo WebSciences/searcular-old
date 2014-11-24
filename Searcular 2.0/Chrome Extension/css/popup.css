@@ -1,0 +1,47 @@
+body {
+	min-width: 300px;
+	min-height: 200px;
+}
+
+.starter-template {
+  padding: 20px 15px;
+  text-align: center;
+}
+
+.social-buttons {
+	padding-top:20px;
+	border-top-style: solid;
+	border-top-color: white;
+	border-top-width: 1px;
+}
+
+h5 {
+	color: white;
+}
+
+.background-image {
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 1;
+
+  display: block;
+  background-image: url("../img/circles_background.jpg");
+  width: 1200px;
+  height: 800px;
+
+  -webkit-filter: blur(20px);
+  -moz-filter: blur(20px);
+  -o-filter: blur(20px);
+  -ms-filter: blur(20px);
+  filter: blur(20px);
+}
+
+.content {
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  margin-left: 20px;
+  margin-right: 20px;
+}
