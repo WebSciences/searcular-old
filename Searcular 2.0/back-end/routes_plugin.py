@@ -5,15 +5,14 @@ from sqlalchemy import *
 import json
 
 
-#Example adding a search
+#call go with json data as arg to submit to db
 @app.route('/')
-def go():
-      # data = json.loads(json)
-      # result = data[0]['io']
-      # for res in result:
-      #     addSession(res['url'],res['query'],res['duration'])
-      addSession('ww','dfr fr ',60)
-      return "done"
+def go(json):
+      data = json.loads(json)
+      result = data[0]['io']
+      for res in result:
+          addSession(res['url'],res['query'],res['duration'])
+      return "Search added"
 
 def addSession(url,query,duration): 
       website_id = addWebsite(url)
@@ -22,7 +21,7 @@ def addSession(url,query,duration):
       addSearch_Websites(search_id,website_id,duration)
 
 def addSearch(query_id):
-       user_id = 1
+       user_id = session['userID'] 
        newSearch = Searches(1,query_id)
        sessions.add(newSearch)
        sessions.commit()
