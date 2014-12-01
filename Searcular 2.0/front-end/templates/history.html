@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block tags %}
+            <li role="presentation" class="{% if tag == 'all' %}active{%endif%}"><a href="{{ url_for('history') }}">All</a></li>
+            {% for t in tags %}
+            <li role="presentation" class="{% if tag == t %}active{%endif%}"><a href="{{ url_for('history', tag = t, page = 1) }}">{{t}}</a></li>
+            {% endfor %}
+            {% endblock %}
+{% block content %}
+        <!--base above-->
+        {% for c in contents %}
+        <div class="media"> <a class="media-left" href="{{c.url}}"> <img class="media-object" data-src="holder.js/64x64" src="{{c.image}}" width=80 alt="Generic placeholder image"> </a>
+            <div class="media-body">
+                <a href="{{c.url}}">
+                <h3 class="media-heading">{{c.name}}</h4>
+                </a>
+                {{c.description}}</div>
+        </div>
+        {% endfor %}
+
+        <nav>
+            <ul class="pager pagination-lg">
+                
+                <li class="previous {% if not pagination.has_prev %} disabled {%endif%}"><a href="{{ url_for('history', tag = tag, page = pagination.prev_num) }}">Newer</a></li>
+                {% for i in pagination.total_pages %}
+                <li class="{% if i == pagination.current_page %} disabled {%endif%}"><a href="{{ url_for('history', tag = tag, page = i) }}">{{i}}</a></li>
+                {% endfor %}
+                <li class="next {% if not pagination.has_next%} disabled {%endif%}"><a href="{{ url_for('history', tag = tag, page = pagination.next_num) }}">Older</a></li>
+            </ul>
+        </nav>
+        <!--base below-->
+ {% endblock %}

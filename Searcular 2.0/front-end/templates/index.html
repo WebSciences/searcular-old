@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block tags %}
+            <li role="presentation" class="{% if tag == 'all' %}active{%endif%}"><a href="{{ url_for('index') }}">All</a></li>
+            {% for t in tags %}
+            <li role="presentation" class="{% if tag == t %}active{%endif%}"><a href="{{ url_for('index', tag = t, page = 1) }}">{{t}}</a></li>
+            {% endfor %}
+            {% endblock %}
+
+{% block content %}
+        <!---base above-->
+        {% for c in contents %}
+
+        {% if loop.index % 4 == 1 %}
+        <div class="row">
+        {% endif %}
+            
+            <div class="col-xs-6 col-sm-3"> <img data-src="holder.js/200x200/auto/sky" class="img-responsive" alt="200x200"  src="{{c.image}}" data-holder-rendered="true"> <a href="{{c.url}}">
+                <h4>{{c.name}}</h4>
+                </a> <span class="text-muted">{{c.description}}</span> </div>
+            
+        {% if (loop.index % 4 == 0) or loop.last %}
+        </div>
+        {% endif %}
+        
+        {% endfor %}
+
+        <nav>
+            <ul class="pager pagination-lg">
+                
+                <li class="previous {% if not pagination.has_prev %} disabled {%endif%}"><a href="{{ url_for('index', tag = tag, page = pagination.prev_num) }}">Newer</a></li>
+                {% for i in pagination.total_pages %}
+                <li class="{% if i == pagination.current_page %} disabled {%endif%}"><a href="{{ url_for('index', tag = tag, page = i) }}">{{i}}</a></li>
+                {% endfor %}
+                <li class="next {% if not pagination.has_next%} disabled {%endif%}"><a href="{{ url_for('index', tag = tag, page = pagination.next_num) }}">Older</a></li>
+            </ul>
+        </nav>
+
+{% endblock %}
+ 
