@@ -1,7 +1,7 @@
 from flask.ext.wtf import Form
 from wtforms import TextField, BooleanField, SubmitField, validators, PasswordField, ValidationError
 from wtforms.validators import Required
-from models import db, Users
+from models.models import db, Users
 
 class SignupForm(Form):
   firstname = TextField("First name",  [validators.Required("Please enter your first name."),validators.Length(min=4, max=25)])
