@@ -1,0 +1,3 @@
+Copy the template and static folders into the basedir.
+The preview looks of htmls are in static/html_witout_jinja2 folder.
+To use the html files, see the view.py file I've uploaded, it shows an example of usage.
