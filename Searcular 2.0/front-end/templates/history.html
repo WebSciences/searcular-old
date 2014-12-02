@@ -8,12 +8,12 @@
 {% block content %}
         <!--base above-->
         {% for c in contents %}
-        <div class="media"> <a class="media-left" href="{{c.url}}"> <img class="media-object" data-src="holder.js/64x64" src="{{c.image}}" width=80 alt="Generic placeholder image"> </a>
+        <div class="media"> <a class="media-left" href="{{c.url}}"> <img class="media-object" data-src="holder.js/64x64" src="http://cdn.sstatic.net/stackoverflow/img/polyglot-404.png" width=80 alt="Generic placeholder image"> </a>
             <div class="media-body">
                 <a href="{{c.url}}">
                 <h3 class="media-heading">{{c.name}}</h4>
                 </a>
-                {{c.description}}</div>
+                some description of this link.........</div>
         </div>
         {% endfor %}
 

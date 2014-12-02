@@ -40,32 +40,20 @@ def index(tag = 'all', page = 1):
 	tags = ['car insurance', 'cheap flight', 'tag3', 'tag4']
 	contents = [
 		{'url':'http://www.google.com',
-		'image':'http://www.baidu.com/img/bdlogo.png',
-		'description':'this is a website a',
 		'name':'link1'},
 
-		{'url':'http://www.google.com',
-		'image':'http://www.baidu.com/img/bdlogo.png',
-		'description':'this is a website b',
+		{'url':'http://www.baidu.com',
 		'name':'link1'},
 
-		{'url':'http://www.google.com',
-		'image':'http://sdfacademy.com/wp-content/uploads/2012/11/SDFA-GU10-AA-C-1st-place.jpg',
-		'description':'this is a website c',
+		{'url':'http://www.flickr.com',
 		'name':'link1'},
-		{'url':'http://www.google.com',
-		'image':'http://www.baidu.com/img/bdlogo.png',
-		'description':'this is a website a',
+		{'url':'http://www.twitter.com',
 		'name':'link1'},
 
-		{'url':'http://www.google.com',
-		'image':'http://www.baidu.com/img/bdlogo.png',
-		'description':'this is a website b',
+		{'url':'http://pagepeeker.com',
 		'name':'link1'},
 
-		{'url':'http://www.google.com',
-		'image':'http://sdfacademy.com/wp-content/uploads/2012/11/SDFA-GU10-AA-C-1st-place.jpg',
-		'description':'this is a website c',
+		{'url':'http://www.youtube.com',
 		'name':'link1'}
 	]
 	p = pagination(page)

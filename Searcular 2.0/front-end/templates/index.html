@@ -15,9 +15,9 @@
         <div class="row">
         {% endif %}
             
-            <div class="col-xs-6 col-sm-3"> <img data-src="holder.js/200x200/auto/sky" class="img-responsive" alt="200x200"  src="{{c.image}}" data-holder-rendered="true"> <a href="{{c.url}}">
+            <div class="col-xs-6 col-sm-3"> <img data-src="holder.js/200x200/auto/sky" class="img-responsive" alt="200x200" src="http://free.pagepeeker.com/v2/thumbs.php?size=l&url={{c.url}}" data-holder-rendered="true"> <a href="{{c.url}}">
                 <h4>{{c.name}}</h4>
-                </a> <span class="text-muted">{{c.description}}</span> </div>
+                </a> <span class="text-muted">some description of this link.........</span> </div>
             
         {% if (loop.index % 4 == 0) or loop.last %}
         </div>
